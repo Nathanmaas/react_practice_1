@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First React Test</title>
+  <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+
+<script type="text/jsx">
+
+var Who = React.createClass({
+  propTypes:{
+    name: React.PropTypes.string,
+    num: React.PropTypes.number,
+    isIt: React.PropTypes.bool.isRequired
+  },
+  whoClick: function(){
+    this.setState({clickCount: this.state.clickCount + 1});
+    this.props.countIt();
+  },
+  getDefaultProps: function(){
+    return {
+      name: 'Lenny',
+      num: 5
+    }
+  },
+  getInitialState: function(){
+    return {
+      clickCount: 0
+    }
+  },
+  render: function(){
+    var num = this.props.num
+    return <span onClick={this.whoClick}>
+      {this.props.name} - {num} - {this.state.clickCount}
+    </span>
+  }
+});
+
+var Hello = React.createClass({
+  getInitialState: function(){
+    return {count: 0}
+  },
+  increment: function(){
+    this.setState({count: this.state.count + 1});
+  },
+  render: function(){
+    return (
+      <div>
+        count: {this.state.count}
+        <h1>Hello <Who countIt={this.increment} isIt={true} num={7} name="Bob" /></h1>
+      </div>
+    );
+  }
+});
+
+React.render(<Hello />, document.body)
+
+</script>
+
+</body>
+</html>
